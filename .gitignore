@@ -21,4 +21,4 @@ env/
 .DS_Store
 
 # Model files (agar bahut heavy hain to ignore karo)
-*.pth
+
