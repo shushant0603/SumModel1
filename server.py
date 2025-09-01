@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
+from fastapi.middleware.cors import CORSMiddleware
 import torch
 import torch.nn as nn
 
@@ -24,9 +25,23 @@ def prepare_input(numbers, max_len=5):
 # -------- FastAPI App --------
 app = FastAPI()
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 # -------- Request Schema --------
 class NumbersInput(BaseModel):
     numbers: list[int]
+
+    # New: Root route for the homepage
+@app.get("/")
+def home():
+    return {"message": "Welcome to the SumNet API! Please use the /predict endpoint to get a prediction."}
+
 
 @app.post("/predict")
 def predict_sum(data: NumbersInput):
