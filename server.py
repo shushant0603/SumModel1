@@ -37,11 +37,14 @@ app.add_middleware(
 class NumbersInput(BaseModel):
     numbers: list[int]
 
-    # New: Root route for the homepage
-@app.get("/", methods=["GET", "HEAD"])
+# -------- Routes --------
+@app.api_route("/", methods=["GET", "HEAD"])
 def home():
     return {"message": "Welcome to the SumNet API! Please use the /predict endpoint to get a prediction."}
 
+@app.api_route("/ping", methods=["GET", "HEAD"])
+def ping():
+    return {"status": "alive 🚀"}
 
 @app.post("/predict")
 def predict_sum(data: NumbersInput):
