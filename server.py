@@ -38,7 +38,7 @@ class NumbersInput(BaseModel):
     numbers: list[int]
 
     # New: Root route for the homepage
-@app.get("/")
+@app.get("/", methods=["GET", "HEAD"])
 def home():
     return {"message": "Welcome to the SumNet API! Please use the /predict endpoint to get a prediction."}
 
